@@ -3,7 +3,7 @@ import {
   Logger,
   RateLimiter,
   RequestTracker,
-  UnixTime,
+  UnixTimestamp,
 } from '@l2beat/common'
 
 import { stringAsBigInt } from '../../tools/types'
@@ -30,7 +30,7 @@ export class EtherscanClient {
     return this.requestTracker.getStats()
   }
 
-  async getBlockNumberAtOrBefore(timestamp: UnixTime): Promise<bigint> {
+  async getBlockNumberAtOrBefore(timestamp: UnixTimestamp): Promise<bigint> {
     const result = await this.call('block', 'getblocknobytime', {
       timestamp: timestamp.toString(),
       closest: 'before',

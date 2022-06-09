@@ -1,11 +1,11 @@
-import { Logger, UnixTime } from '@l2beat/common'
+import { Logger, UnixTimestamp } from '@l2beat/common'
 import { Knex } from 'knex'
 import { BlockNumberRow } from 'knex/types/tables'
 
 import { BaseRepository } from './BaseRepository'
 
 export interface BlockNumberRecord {
-  timestamp: UnixTime
+  timestamp: UnixTimestamp
   blockNumber: bigint
 }
 
@@ -47,7 +47,7 @@ function toRow(record: BlockNumberRecord): BlockNumberRow {
 
 function toRecord(row: BlockNumberRow): BlockNumberRecord {
   return {
-    timestamp: new UnixTime(+row.unix_timestamp),
+    timestamp: UnixTimestamp.fromSeconds(+row.unix_timestamp),
     blockNumber: BigInt(row.block_number),
   }
 }

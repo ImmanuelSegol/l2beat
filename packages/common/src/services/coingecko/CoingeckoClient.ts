@@ -1,5 +1,5 @@
 import { RateLimiter } from '../../tools/RateLimiter'
-import { CoingeckoId, UnixTime } from '../../types'
+import { CoingeckoId, UnixTimestamp } from '../../types'
 import { HttpClient } from '../HttpClient'
 import {
   CoinListEntry,
@@ -42,8 +42,8 @@ export class CoingeckoClient {
   async getCoinMarketChartRange(
     coindId: CoingeckoId,
     vs_currency: string,
-    from: UnixTime,
-    to: UnixTime
+    from: UnixTimestamp,
+    to: UnixTimestamp
   ): Promise<CoinMarketChartRangeData> {
     const data = await this.query(`/coins/${coindId}/market_chart/range`, {
       vs_currency: vs_currency.toLowerCase(),

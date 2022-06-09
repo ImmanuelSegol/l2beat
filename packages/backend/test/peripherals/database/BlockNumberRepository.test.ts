@@ -1,4 +1,4 @@
-import { Logger, UnixTime } from '@l2beat/common'
+import { Logger, UnixTimestamp } from '@l2beat/common'
 import { expect } from 'earljs'
 
 import { BlockNumberRepository } from '../../../src/peripherals/database/BlockNumberRepository'
@@ -17,8 +17,8 @@ describe(BlockNumberRepository.name, () => {
   it('can add new records', async () => {
     const repository = new BlockNumberRepository(knex, Logger.SILENT)
 
-    const itemA = { blockNumber: 1234n, timestamp: new UnixTime(5678) }
-    const itemB = { blockNumber: 7777n, timestamp: new UnixTime(222222) }
+    const itemA = { blockNumber: 1234n, timestamp: UnixTimestamp.fromSeconds(5678) }
+    const itemB = { blockNumber: 7777n, timestamp: UnixTimestamp.fromSeconds(222222) }
 
     await repository.add(itemA)
     await repository.add(itemB)

@@ -1,4 +1,4 @@
-import { CoingeckoId, Logger, UnixTime } from '@l2beat/common'
+import { CoingeckoId, Logger, UnixTimestamp } from '@l2beat/common'
 import { Knex } from 'knex'
 import { PriceRow } from 'knex/types/tables'
 
@@ -7,12 +7,12 @@ import { BaseRepository } from './BaseRepository'
 export interface PriceRecord {
   coingeckoId: CoingeckoId
   priceUsd: number
-  timestamp: UnixTime
+  timestamp: UnixTimestamp
 }
 
 export interface DataBoundary {
-  earliest: UnixTime
-  latest: UnixTime
+  earliest: UnixTimestamp
+  latest: UnixTimestamp
 }
 
 export class PriceRepository extends BaseRepository {
@@ -34,9 +34,9 @@ export class PriceRepository extends BaseRepository {
     return rows.map(toRecord)
   }
 
-  async getByTimestamp(timestamp: UnixTime): Promise<PriceRecord[]> {
+  async getByTimestamp(timestamp: UnixTimestamp): Promise<PriceRecord[]> {
     const rows = await this.knex('coingecko_prices')
-      .where({ unix_timestamp: timestamp.toNumber().toString() })
+      .where({ unix_timestamp: timestamp.toString() })
       .select('coingecko_id', 'price_usd', 'unix_timestamp')
 
     this.logger.debug({
@@ -88,8 +88,8 @@ export class PriceRepository extends BaseRepository {
       rows.map((row) => [
         CoingeckoId(row.coingecko_id),
         {
-          earliest: new UnixTime(parseInt(row.min)),
-          latest: new UnixTime(parseInt(row.max)),
+          earliest: UnixTimestamp.fromSeconds(parseInt(row.min)),
+          latest: UnixTimestamp.fromSeconds(parseInt(row.max)),
         },
       ])
     )
@@ -98,7 +98,7 @@ export class PriceRepository extends BaseRepository {
 
 function toRecord(row: PriceRow): PriceRecord {
   return {
-    timestamp: new UnixTime(+row.unix_timestamp),
+    timestamp: UnixTimestamp.fromSeconds(+row.unix_timestamp),
     coingeckoId: CoingeckoId(row.coingecko_id),
     priceUsd: +row.price_usd,
   }
@@ -108,6 +108,6 @@ function toRow(record: PriceRecord): PriceRow {
   return {
     coingecko_id: record.coingeckoId.toString(),
     price_usd: record.priceUsd,
-    unix_timestamp: record.timestamp.toNumber().toString(),
+    unix_timestamp: record.timestamp.toString(),
   }
 }

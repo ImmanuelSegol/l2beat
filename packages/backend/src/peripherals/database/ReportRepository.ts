@@ -1,4 +1,4 @@
-import { AssetId, EthereumAddress, Logger, UnixTime } from '@l2beat/common'
+import { AssetId, EthereumAddress, Logger, UnixTimestamp } from '@l2beat/common'
 import { Knex } from 'knex'
 import { ReportRow } from 'knex/types/tables'
 
@@ -6,7 +6,7 @@ import { BaseRepository } from './BaseRepository'
 
 export interface ReportRecord {
   blockNumber: bigint
-  timestamp: UnixTime
+  timestamp: UnixTimestamp
   bridge: EthereumAddress
   asset: AssetId
   usdTVL: bigint
@@ -55,20 +55,20 @@ export class ReportRepository extends BaseRepository {
 function toRow(record: ReportRecord): ReportRow {
   return {
     block_number: Number(record.blockNumber),
-    unix_timestamp: record.timestamp.toNumber().toString(),
+    unix_timestamp: record.timestamp.toString(),
     bridge_address: record.bridge.toString(),
     asset_id: record.asset.toString(),
     balance: record.balance.toString(),
     usd_tvl: record.usdTVL.toString(),
     eth_tvl: record.ethTVL.toString(),
-    is_daily: record.timestamp.toNumber() % 86400 === 0 ? true : false,
+    is_daily: UnixTimestamp.isExact('day', record.timestamp),
   }
 }
 
 function toRecord(row: ReportRow): ReportRecord {
   return {
     blockNumber: BigInt(row.block_number),
-    timestamp: new UnixTime(+row.unix_timestamp),
+    timestamp: UnixTimestamp.fromSeconds(+row.unix_timestamp),
     bridge: EthereumAddress.unsafe(row.bridge_address),
     asset: AssetId(row.asset_id),
     balance: BigInt(row.balance),

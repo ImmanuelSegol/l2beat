@@ -6,7 +6,7 @@ import {
   CoinMarketChartRangeData,
   CoinMarketChartRangeResult,
 } from '../../../src/services/coingecko/model'
-import { UnixTime } from '../../../src/types'
+import { UnixTimestamp } from '../../../src/types'
 
 //add names
 describe(CoingeckoClient.name, () => {
@@ -170,8 +170,8 @@ describe(CoingeckoClient.name, () => {
       const result = await coingeckoClient.getCoinMarketChartRange(
         CoingeckoId('ethereum'),
         'usd',
-        new UnixTime(1592577232),
-        new UnixTime(1622577232)
+        UnixTimestamp.fromSeconds(1592577232),
+        UnixTimestamp.fromSeconds(1622577232)
       )
 
       expect(result).toEqual(MOCK_TRANSFORMED_DATA)
@@ -191,8 +191,8 @@ describe(CoingeckoClient.name, () => {
       await coingeckoClient.getCoinMarketChartRange(
         CoingeckoId('ethereum'),
         'usd',
-        new UnixTime(1592577232),
-        new UnixTime(1622577232)
+        UnixTimestamp.fromSeconds(1592577232),
+        UnixTimestamp.fromSeconds(1622577232)
       )
     })
   })

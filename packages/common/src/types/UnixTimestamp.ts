@@ -3,6 +3,10 @@ export interface UnixTimestamp extends Number {
 }
 
 export const UnixTimestamp = {
+  now() {
+    return UnixTimestamp.fromDate(new Date())
+  },
+
   fromSeconds(secondsSince1970: number) {
     if (!Number.isSafeInteger(secondsSince1970)) {
       throw new Error('Cannot create a UnixTimestamp from an unsafe integer')

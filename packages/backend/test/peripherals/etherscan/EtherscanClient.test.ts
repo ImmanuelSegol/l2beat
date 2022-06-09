@@ -1,4 +1,4 @@
-import { Logger, mock, UnixTime } from '@l2beat/common'
+import { Logger, mock, UnixTimestamp } from '@l2beat/common'
 import { expect } from 'earljs'
 import { Response } from 'node-fetch'
 
@@ -64,7 +64,7 @@ describe(EtherscanClient.name, () => {
   describe(EtherscanClient.prototype.getBlockNumberAtOrBefore.name, () => {
     it('constructs the correct url', async () => {
       const apiKey = 'xXApiKeyXx'
-      const timestamp = new UnixTime(1578638524)
+      const timestamp = UnixTimestamp.fromSeconds(1578638524)
 
       const params = new URLSearchParams({
         module: 'block',
@@ -106,7 +106,7 @@ describe(EtherscanClient.name, () => {
         Logger.SILENT
       )
       const result = await etherscanClient.getBlockNumberAtOrBefore(
-        new UnixTime(1578638524)
+        UnixTimestamp.fromSeconds(1578638524)
       )
       expect(result).toEqual(9251482n)
     })

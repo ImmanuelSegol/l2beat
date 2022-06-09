@@ -1,17 +1,17 @@
 import { expect } from 'earljs'
 
-import { UnixTime } from '../../src/types'
+import { UnixTimestamp } from '../../src/types'
 import { getTimestamps } from '../../src/utils/getTimestamps'
 
 describe(getTimestamps.name, () => {
   describe('hourly', () => {
     const GRANULARITY = 'hourly'
-    const FROM = UnixTime.fromDate(new Date('2021-09-07T13:00:00Z'))
-    const TO = UnixTime.fromDate(new Date('2021-09-07T15:00:00Z'))
+    const FROM = UnixTimestamp.fromDate(new Date('2021-09-07T13:00:00Z'))
+    const TO = UnixTimestamp.fromDate(new Date('2021-09-07T15:00:00Z'))
 
     const RESULT = [
       FROM,
-      UnixTime.fromDate(new Date('2021-09-07T14:00:00Z')),
+      UnixTimestamp.fromDate(new Date('2021-09-07T14:00:00Z')),
       TO,
     ]
 
@@ -27,19 +27,23 @@ describe(getTimestamps.name, () => {
 
     it('13:01 to 15:01', () => {
       expect(
-        getTimestamps(FROM.add(1, 'minutes'), TO.add(1, 'minutes'), GRANULARITY)
+        getTimestamps(
+          UnixTimestamp.add(1, 'minutes', FROM),
+          UnixTimestamp.add(1, 'minutes', TO),
+          GRANULARITY
+        )
       ).toEqual([
-        UnixTime.fromDate(new Date('2021-09-07T14:00:00Z')),
-        UnixTime.fromDate(new Date('2021-09-07T15:00:00Z')),
+        UnixTimestamp.fromDate(new Date('2021-09-07T14:00:00Z')),
+        UnixTimestamp.fromDate(new Date('2021-09-07T15:00:00Z')),
       ])
     })
 
     it('23:00 to 01:00', () => {
-      const from = UnixTime.fromDate(new Date('2021-09-07T23:00:00Z'))
-      const to = UnixTime.fromDate(new Date('2021-09-08T01:00:00Z'))
+      const from = UnixTimestamp.fromDate(new Date('2021-09-07T23:00:00Z'))
+      const to = UnixTimestamp.fromDate(new Date('2021-09-08T01:00:00Z'))
       const result = [
         from,
-        UnixTime.fromDate(new Date('2021-09-08T00:00:00Z')),
+        UnixTimestamp.fromDate(new Date('2021-09-08T00:00:00Z')),
         to,
       ]
 
@@ -49,12 +53,12 @@ describe(getTimestamps.name, () => {
 
   describe('daily', () => {
     const GRANULARITY = 'daily'
-    const FROM = UnixTime.fromDate(new Date('2021-09-07T00:00:00Z'))
-    const TO = UnixTime.fromDate(new Date('2021-09-09T00:00:00Z'))
+    const FROM = UnixTimestamp.fromDate(new Date('2021-09-07T00:00:00Z'))
+    const TO = UnixTimestamp.fromDate(new Date('2021-09-09T00:00:00Z'))
 
     const RESULT = [
       FROM,
-      UnixTime.fromDate(new Date('2021-09-08T00:00:00Z')),
+      UnixTimestamp.fromDate(new Date('2021-09-08T00:00:00Z')),
       TO,
     ]
 
@@ -70,10 +74,14 @@ describe(getTimestamps.name, () => {
 
     it('07.09.2021 01:00 to 09.09.2021 01:00', () => {
       expect(
-        getTimestamps(FROM.add(1, 'hours'), TO.add(1, 'hours'), GRANULARITY)
+        getTimestamps(
+          UnixTimestamp.add(1, 'hours', FROM),
+          UnixTimestamp.add(1, 'hours', TO),
+          GRANULARITY
+        )
       ).toEqual([
-        UnixTime.fromDate(new Date('2021-09-08T00:00:00Z')),
-        UnixTime.fromDate(new Date('2021-09-09T00:00:00Z')),
+        UnixTimestamp.fromDate(new Date('2021-09-08T00:00:00Z')),
+        UnixTimestamp.fromDate(new Date('2021-09-09T00:00:00Z')),
       ])
     })
   })
