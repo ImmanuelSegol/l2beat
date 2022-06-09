@@ -6,6 +6,7 @@ const SECONDS_PER_DAY = 86_400
 const SECONDS_PER_HOUR = 3_600
 const SECONDS_PER_MINUTE = 60
 
+/** @deprecated Use UnixTimestamp instead */
 export class UnixTime {
   constructor(private timestamp: number) {
     if (!Number.isInteger(timestamp)) {
