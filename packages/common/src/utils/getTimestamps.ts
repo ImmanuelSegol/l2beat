@@ -1,4 +1,4 @@
-import { UnixTimestamp } from '../types'
+import { UNIX_DAY, UNIX_HOUR, UnixTimestamp } from '../types'
 
 type Granularity = 'daily' | 'hourly'
 
@@ -12,8 +12,7 @@ export function getTimestamps(
   const [start, end] = adjust(from, to, granularity)
 
   const result: UnixTimestamp[] = []
-  const TIME_STEP =
-    granularity === 'hourly' ? UnixTimestamp.HOUR : UnixTimestamp.DAY
+  const TIME_STEP = granularity === 'hourly' ? UNIX_HOUR : UNIX_DAY
   for (let i = +start; i <= +end; i += TIME_STEP) {
     result.push(UnixTimestamp(i))
   }
@@ -25,8 +24,7 @@ function adjust(
   to: UnixTimestamp,
   granularity: Granularity
 ) {
-  const period =
-    granularity === 'hourly' ? UnixTimestamp.HOUR : UnixTimestamp.DAY
+  const period = granularity === 'hourly' ? UNIX_HOUR : UNIX_DAY
   return [
     UnixTimestamp.roundUpTo(period, from),
     UnixTimestamp.roundDownTo(period, to),

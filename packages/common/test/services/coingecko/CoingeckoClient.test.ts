@@ -129,36 +129,36 @@ describe(CoingeckoClient.name, () => {
   describe(CoingeckoClient.prototype.getCoinMarketChartRange.name, () => {
     const MOCK_PARSED_DATA: CoinMarketChartRangeResult = {
       prices: [
-        [1592611200000, 228.9592128032193],
-        [1592697600000, 228.8691487972198],
-        [1592784000000, 227.79190590968685],
+        [1592611200123, 228.9592128032193],
+        [1592697600123, 228.8691487972198],
+        [1592784000123, 227.79190590968685],
       ],
       market_caps: [
-        [1592611200000, 25534271650.26011],
-        [1592697600000, 25501270877.342506],
-        [1592784000000, 25381090910.620564],
+        [1592611200123, 25534271650.26011],
+        [1592697600123, 25501270877.342506],
+        [1592784000123, 25381090910.620564],
       ],
       total_volumes: [
-        [1592611200000, 6840801770.229276],
-        [1592697600000, 5400222130.457475],
-        [1592784000000, 4995955268.45639],
+        [1592611200123, 6840801770.2292],
+        [1592697600123, 5400222130.45747],
+        [1592784000123, 4995955268.45639],
       ],
     }
     const MOCK_TRANSFORMED_DATA: CoinMarketChartRangeData = {
       prices: [
-        { date: new Date(1592611200000), price: 228.9592128032193 },
-        { date: new Date(1592697600000), price: 228.8691487972198 },
-        { date: new Date(1592784000000), price: 227.79190590968685 },
+        { timestamp: UnixTimestamp(1592611200), price: 228.9592128032193 },
+        { timestamp: UnixTimestamp(1592697600), price: 228.8691487972198 },
+        { timestamp: UnixTimestamp(1592784000), price: 227.79190590968685 },
       ],
       marketCaps: [
-        { date: new Date(1592611200000), marketCap: 25534271650.26011 },
-        { date: new Date(1592697600000), marketCap: 25501270877.342506 },
-        { date: new Date(1592784000000), marketCap: 25381090910.620564 },
+        { timestamp: UnixTimestamp(1592611200), marketCap: 25534271650.26011 },
+        { timestamp: UnixTimestamp(1592697600), marketCap: 25501270877.342506 },
+        { timestamp: UnixTimestamp(1592784000), marketCap: 25381090910.620564 },
       ],
       totalVolumes: [
-        { date: new Date(1592611200000), totalVolume: 6840801770.229276 },
-        { date: new Date(1592697600000), totalVolume: 5400222130.457475 },
-        { date: new Date(1592784000000), totalVolume: 4995955268.45639 },
+        { timestamp: UnixTimestamp(1592611200), totalVolume: 6840801770.2292 },
+        { timestamp: UnixTimestamp(1592697600), totalVolume: 5400222130.45747 },
+        { timestamp: UnixTimestamp(1592784000), totalVolume: 4995955268.45639 },
       ],
     }
 

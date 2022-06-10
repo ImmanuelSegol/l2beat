@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { CoingeckoId } from '../../types'
+import { CoingeckoId, UnixTimestamp } from '../../types'
 
 export type CoinListEntry = z.infer<typeof CoinListEntry>
 export const CoinListEntry = z.object({
@@ -30,7 +30,7 @@ export const CoinMarketChartRangeResult = z.object({
 })
 
 export interface CoinMarketChartRangeData {
-  prices: { date: Date; price: number }[]
-  marketCaps: { date: Date; marketCap: number }[]
-  totalVolumes: { date: Date; totalVolume: number }[]
+  prices: { timestamp: UnixTimestamp; price: number }[]
+  marketCaps: { timestamp: UnixTimestamp; marketCap: number }[]
+  totalVolumes: { timestamp: UnixTimestamp; totalVolume: number }[]
 }

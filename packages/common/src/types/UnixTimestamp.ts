@@ -9,9 +9,9 @@ export function UnixTimestamp(secondsSince1970: number) {
   return secondsSince1970 as unknown as UnixTimestamp
 }
 
-UnixTimestamp.DAY = 86_400
-UnixTimestamp.HOUR = 3_600
-UnixTimestamp.MINUTE = 60
+export const UNIX_MINUTE = 60
+export const UNIX_HOUR = 60 * UNIX_MINUTE
+export const UNIX_DAY = 24 * UNIX_HOUR
 
 UnixTimestamp.now = function now() {
   return UnixTimestamp.fromDate(new Date())

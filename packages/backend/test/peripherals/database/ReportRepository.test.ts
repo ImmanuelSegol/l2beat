@@ -1,4 +1,11 @@
-import { AssetId, EthereumAddress, Logger, UnixTimestamp } from '@l2beat/common'
+import {
+  AssetId,
+  EthereumAddress,
+  Logger,
+  UnixTimestamp,
+  UNIX_DAY,
+  UNIX_HOUR,
+} from '@l2beat/common'
 import { expect } from 'earljs'
 
 import { BalanceRepository } from '../../../src/peripherals/database/BalanceRepository'
@@ -10,10 +17,7 @@ describe(ReportRepository.name, () => {
   const reportsRepository = new ReportRepository(knex, Logger.SILENT)
   const balancesRepository = new BalanceRepository(knex, Logger.SILENT)
 
-  const TODAY = UnixTimestamp.roundDownTo(
-    UnixTimestamp.DAY,
-    UnixTimestamp.now()
-  )
+  const TODAY = UnixTimestamp.roundDownTo(UNIX_DAY, UnixTimestamp.now())
   const BLOCK = 123456n
   const BRIDGE_A = EthereumAddress.random()
   const ASSET_A = AssetId('asset-a')
@@ -26,7 +30,7 @@ describe(ReportRepository.name, () => {
   ) => {
     return {
       blockNumber: BLOCK + blockOffset,
-      timestamp: UnixTimestamp(+TODAY + timestampOffset * UnixTimestamp.HOUR),
+      timestamp: UnixTimestamp(+TODAY + timestampOffset * UNIX_HOUR),
       bridge,
       asset: ASSET_A,
       balance: BALANCE,

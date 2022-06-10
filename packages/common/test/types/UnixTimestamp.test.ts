@@ -1,6 +1,11 @@
 import { expect } from 'earljs'
 
-import { UnixTimestamp } from '../../src/types'
+import {
+  UNIX_DAY,
+  UNIX_HOUR,
+  UNIX_MINUTE,
+  UnixTimestamp,
+} from '../../src/types'
 
 describe('UnixTimestamp', () => {
   it('can be created from seconds', () => {
@@ -44,7 +49,7 @@ describe('UnixTimestamp', () => {
   describe(UnixTimestamp.roundDownTo.name, () => {
     it('day', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:56Z'))
-      const result = UnixTimestamp.roundDownTo(UnixTimestamp.DAY, timestamp)
+      const result = UnixTimestamp.roundDownTo(UNIX_DAY, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T00:00:00Z')
       )
@@ -52,7 +57,7 @@ describe('UnixTimestamp', () => {
 
     it('beginning of a day', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T00:00:00Z'))
-      const result = UnixTimestamp.roundDownTo(UnixTimestamp.DAY, timestamp)
+      const result = UnixTimestamp.roundDownTo(UNIX_DAY, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T00:00:00Z')
       )
@@ -60,7 +65,7 @@ describe('UnixTimestamp', () => {
 
     it('hour', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:56Z'))
-      const result = UnixTimestamp.roundDownTo(UnixTimestamp.HOUR, timestamp)
+      const result = UnixTimestamp.roundDownTo(UNIX_HOUR, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T12:00:00Z')
       )
@@ -68,7 +73,7 @@ describe('UnixTimestamp', () => {
 
     it('beginning of an hour', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:00:00Z'))
-      const result = UnixTimestamp.roundDownTo(UnixTimestamp.HOUR, timestamp)
+      const result = UnixTimestamp.roundDownTo(UNIX_HOUR, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T12:00:00Z')
       )
@@ -76,7 +81,7 @@ describe('UnixTimestamp', () => {
 
     it('minute', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:56Z'))
-      const result = UnixTimestamp.roundDownTo(UnixTimestamp.MINUTE, timestamp)
+      const result = UnixTimestamp.roundDownTo(UNIX_MINUTE, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T12:34:00Z')
       )
@@ -84,7 +89,7 @@ describe('UnixTimestamp', () => {
 
     it('beginning of a minute', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:00Z'))
-      const result = UnixTimestamp.roundDownTo(UnixTimestamp.MINUTE, timestamp)
+      const result = UnixTimestamp.roundDownTo(UNIX_MINUTE, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T12:34:00Z')
       )
@@ -94,7 +99,7 @@ describe('UnixTimestamp', () => {
   describe(UnixTimestamp.roundUpTo.name, () => {
     it('day', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:56Z'))
-      const result = UnixTimestamp.roundUpTo(UnixTimestamp.DAY, timestamp)
+      const result = UnixTimestamp.roundUpTo(UNIX_DAY, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-08T00:00:00Z')
       )
@@ -102,7 +107,7 @@ describe('UnixTimestamp', () => {
 
     it('begging of a day', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-08T00:00:00Z'))
-      const result = UnixTimestamp.roundUpTo(UnixTimestamp.DAY, timestamp)
+      const result = UnixTimestamp.roundUpTo(UNIX_DAY, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-08T00:00:00Z')
       )
@@ -110,7 +115,7 @@ describe('UnixTimestamp', () => {
 
     it('hour', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:56Z'))
-      const result = UnixTimestamp.roundUpTo(UnixTimestamp.HOUR, timestamp)
+      const result = UnixTimestamp.roundUpTo(UNIX_HOUR, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T13:00:00Z')
       )
@@ -118,7 +123,7 @@ describe('UnixTimestamp', () => {
 
     it('beginning of an hour', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:00:00Z'))
-      const result = UnixTimestamp.roundUpTo(UnixTimestamp.HOUR, timestamp)
+      const result = UnixTimestamp.roundUpTo(UNIX_HOUR, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T12:00:00Z')
       )
@@ -126,7 +131,7 @@ describe('UnixTimestamp', () => {
 
     it('minute', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:56Z'))
-      const result = UnixTimestamp.roundUpTo(UnixTimestamp.MINUTE, timestamp)
+      const result = UnixTimestamp.roundUpTo(UNIX_MINUTE, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T12:35:00Z')
       )
@@ -134,7 +139,7 @@ describe('UnixTimestamp', () => {
 
     it('beginning of a minute', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:34:00Z'))
-      const result = UnixTimestamp.roundUpTo(UnixTimestamp.MINUTE, timestamp)
+      const result = UnixTimestamp.roundUpTo(UNIX_MINUTE, timestamp)
       expect(UnixTimestamp.toDate(result)).toEqual(
         new Date('2021-09-07T12:34:00Z')
       )
@@ -144,38 +149,32 @@ describe('UnixTimestamp', () => {
   describe(UnixTimestamp.isExact.name, () => {
     it('full day', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-08T00:00:00Z'))
-      expect(UnixTimestamp.isExact(UnixTimestamp.DAY, timestamp)).toEqual(true)
+      expect(UnixTimestamp.isExact(UNIX_DAY, timestamp)).toEqual(true)
     })
 
     it('not full day', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-08T10:13:51Z'))
-      expect(UnixTimestamp.isExact(UnixTimestamp.DAY, timestamp)).toEqual(false)
+      expect(UnixTimestamp.isExact(UNIX_DAY, timestamp)).toEqual(false)
     })
 
     it('full hour', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:00:00Z'))
-      expect(UnixTimestamp.isExact(UnixTimestamp.HOUR, timestamp)).toEqual(true)
+      expect(UnixTimestamp.isExact(UNIX_HOUR, timestamp)).toEqual(true)
     })
 
     it('not full hour', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:01:10Z'))
-      expect(UnixTimestamp.isExact(UnixTimestamp.HOUR, timestamp)).toEqual(
-        false
-      )
+      expect(UnixTimestamp.isExact(UNIX_HOUR, timestamp)).toEqual(false)
     })
 
     it('full minute', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:10:00Z'))
-      expect(UnixTimestamp.isExact(UnixTimestamp.MINUTE, timestamp)).toEqual(
-        true
-      )
+      expect(UnixTimestamp.isExact(UNIX_MINUTE, timestamp)).toEqual(true)
     })
 
     it('not full minute', () => {
       const timestamp = UnixTimestamp.fromDate(new Date('2021-09-07T12:10:01Z'))
-      expect(UnixTimestamp.isExact(UnixTimestamp.MINUTE, timestamp)).toEqual(
-        false
-      )
+      expect(UnixTimestamp.isExact(UNIX_MINUTE, timestamp)).toEqual(false)
     })
   })
 })

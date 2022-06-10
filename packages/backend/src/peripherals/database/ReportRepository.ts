@@ -1,4 +1,10 @@
-import { AssetId, EthereumAddress, Logger, UnixTimestamp } from '@l2beat/common'
+import {
+  AssetId,
+  EthereumAddress,
+  Logger,
+  UnixTimestamp,
+  UNIX_DAY,
+} from '@l2beat/common'
 import { Knex } from 'knex'
 import { ReportRow } from 'knex/types/tables'
 
@@ -61,7 +67,7 @@ function toRow(record: ReportRecord): ReportRow {
     balance: record.balance.toString(),
     usd_tvl: record.usdTVL.toString(),
     eth_tvl: record.ethTVL.toString(),
-    is_daily: UnixTimestamp.isExact(UnixTimestamp.DAY, record.timestamp),
+    is_daily: UnixTimestamp.isExact(UNIX_DAY, record.timestamp),
   }
 }
 

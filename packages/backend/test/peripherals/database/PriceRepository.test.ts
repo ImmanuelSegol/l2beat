@@ -1,4 +1,4 @@
-import { CoingeckoId, Logger, UnixTimestamp } from '@l2beat/common'
+import { CoingeckoId, Logger, UnixTimestamp, UNIX_HOUR } from '@l2beat/common'
 import { expect } from 'earljs'
 
 import { PriceRepository } from '../../../src/peripherals/database/PriceRepository'
@@ -12,22 +12,22 @@ describe(PriceRepository.name, () => {
   const DATA = [
     {
       priceUsd: 3000,
-      timestamp: UnixTimestamp(+START - UnixTimestamp.HOUR),
+      timestamp: UnixTimestamp(+START - UNIX_HOUR),
       coingeckoId: CoingeckoId('ethereum'),
     },
     {
       priceUsd: 3100,
-      timestamp: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
+      timestamp: UnixTimestamp(+START - 2 * UNIX_HOUR),
       coingeckoId: CoingeckoId('ethereum'),
     },
     {
       priceUsd: 20,
-      timestamp: UnixTimestamp(+START - UnixTimestamp.HOUR),
+      timestamp: UnixTimestamp(+START - UNIX_HOUR),
       coingeckoId: CoingeckoId('uniswap'),
     },
     {
       priceUsd: 22,
-      timestamp: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
+      timestamp: UnixTimestamp(+START - 2 * UNIX_HOUR),
       coingeckoId: CoingeckoId('uniswap'),
     },
     {
@@ -48,14 +48,14 @@ describe(PriceRepository.name, () => {
         {
           priceUsd: 3300,
           timestamp: UnixTimestamp(
-            +UnixTimestamp.now() - 3 * UnixTimestamp.HOUR
+            +UnixTimestamp.now() - 3 * UNIX_HOUR
           ),
           coingeckoId: CoingeckoId('ethereum'),
         },
         {
           priceUsd: 3500,
           timestamp: UnixTimestamp(
-            +UnixTimestamp.now() - 4 * UnixTimestamp.HOUR
+            +UnixTimestamp.now() - 4 * UNIX_HOUR
           ),
           coingeckoId: CoingeckoId('ethereum'),
         },
@@ -102,7 +102,7 @@ describe(PriceRepository.name, () => {
         {
           priceUsd: 3300.1,
           timestamp: UnixTimestamp(
-            +UnixTimestamp.now() - 3 * UnixTimestamp.HOUR
+            +UnixTimestamp.now() - 3 * UNIX_HOUR
           ),
           coingeckoId: CoingeckoId('ethereum'),
         },
@@ -129,7 +129,7 @@ describe(PriceRepository.name, () => {
   })
 
   it(PriceRepository.prototype.getByTimestamp.name, async () => {
-    const timestamp = UnixTimestamp(+START - UnixTimestamp.HOUR)
+    const timestamp = UnixTimestamp(+START - UNIX_HOUR)
     const results = await repository.getByTimestamp(timestamp)
 
     expect(results).toBeAnArrayWith(DATA[0], DATA[2])
@@ -162,15 +162,15 @@ describe(PriceRepository.name, () => {
           [
             CoingeckoId('ethereum'),
             {
-              earliest: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
-              latest: UnixTimestamp(+START - UnixTimestamp.HOUR),
+              earliest: UnixTimestamp(+START - 2 * UNIX_HOUR),
+              latest: UnixTimestamp(+START - UNIX_HOUR),
             },
           ],
           [
             CoingeckoId('uniswap'),
             {
-              earliest: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
-              latest: UnixTimestamp(+START - UnixTimestamp.HOUR),
+              earliest: UnixTimestamp(+START - 2 * UNIX_HOUR),
+              latest: UnixTimestamp(+START - UNIX_HOUR),
             },
           ],
           [

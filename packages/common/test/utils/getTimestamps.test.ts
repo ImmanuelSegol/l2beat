@@ -1,6 +1,6 @@
 import { expect } from 'earljs'
 
-import { UnixTimestamp } from '../../src/types'
+import { UNIX_HOUR, UNIX_MINUTE, UnixTimestamp } from '../../src/types'
 import { getTimestamps } from '../../src/utils/getTimestamps'
 
 describe(getTimestamps.name, () => {
@@ -28,8 +28,8 @@ describe(getTimestamps.name, () => {
     it('13:01 to 15:01', () => {
       expect(
         getTimestamps(
-          UnixTimestamp(+FROM + UnixTimestamp.MINUTE),
-          UnixTimestamp(+TO + UnixTimestamp.MINUTE),
+          UnixTimestamp(+FROM + UNIX_MINUTE),
+          UnixTimestamp(+TO + UNIX_MINUTE),
           GRANULARITY
         )
       ).toEqual([
@@ -75,8 +75,8 @@ describe(getTimestamps.name, () => {
     it('07.09.2021 01:00 to 09.09.2021 01:00', () => {
       expect(
         getTimestamps(
-          UnixTimestamp(+FROM + UnixTimestamp.HOUR),
-          UnixTimestamp(+TO + UnixTimestamp.HOUR),
+          UnixTimestamp(+FROM + UNIX_HOUR),
+          UnixTimestamp(+TO + UNIX_HOUR),
           GRANULARITY
         )
       ).toEqual([
