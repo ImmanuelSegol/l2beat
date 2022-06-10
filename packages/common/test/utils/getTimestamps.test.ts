@@ -28,8 +28,8 @@ describe(getTimestamps.name, () => {
     it('13:01 to 15:01', () => {
       expect(
         getTimestamps(
-          UnixTimestamp.add(1, 'minutes', FROM),
-          UnixTimestamp.add(1, 'minutes', TO),
+          UnixTimestamp(+FROM + UnixTimestamp.MINUTE),
+          UnixTimestamp(+TO + UnixTimestamp.MINUTE),
           GRANULARITY
         )
       ).toEqual([
@@ -75,8 +75,8 @@ describe(getTimestamps.name, () => {
     it('07.09.2021 01:00 to 09.09.2021 01:00', () => {
       expect(
         getTimestamps(
-          UnixTimestamp.add(1, 'hours', FROM),
-          UnixTimestamp.add(1, 'hours', TO),
+          UnixTimestamp(+FROM + UnixTimestamp.HOUR),
+          UnixTimestamp(+TO + UnixTimestamp.HOUR),
           GRANULARITY
         )
       ).toEqual([
