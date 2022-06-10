@@ -17,8 +17,8 @@ describe(BlockNumberRepository.name, () => {
   it('can add new records', async () => {
     const repository = new BlockNumberRepository(knex, Logger.SILENT)
 
-    const itemA = { blockNumber: 1234n, timestamp: UnixTimestamp.fromSeconds(5678) }
-    const itemB = { blockNumber: 7777n, timestamp: UnixTimestamp.fromSeconds(222222) }
+    const itemA = { blockNumber: 1234n, timestamp: UnixTimestamp(5678) }
+    const itemB = { blockNumber: 7777n, timestamp: UnixTimestamp(222222) }
 
     await repository.add(itemA)
     await repository.add(itemB)

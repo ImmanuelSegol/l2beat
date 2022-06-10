@@ -47,7 +47,7 @@ function toRow(record: BlockNumberRecord): BlockNumberRow {
 
 function toRecord(row: BlockNumberRow): BlockNumberRecord {
   return {
-    timestamp: UnixTimestamp.fromSeconds(+row.unix_timestamp),
+    timestamp: UnixTimestamp(+row.unix_timestamp),
     blockNumber: BigInt(row.block_number),
   }
 }

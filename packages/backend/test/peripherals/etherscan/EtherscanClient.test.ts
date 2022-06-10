@@ -64,7 +64,7 @@ describe(EtherscanClient.name, () => {
   describe(EtherscanClient.prototype.getBlockNumberAtOrBefore.name, () => {
     it('constructs the correct url', async () => {
       const apiKey = 'xXApiKeyXx'
-      const timestamp = UnixTimestamp.fromSeconds(1578638524)
+      const timestamp = UnixTimestamp(1578638524)
 
       const params = new URLSearchParams({
         module: 'block',
@@ -106,7 +106,7 @@ describe(EtherscanClient.name, () => {
         Logger.SILENT
       )
       const result = await etherscanClient.getBlockNumberAtOrBefore(
-        UnixTimestamp.fromSeconds(1578638524)
+        UnixTimestamp(1578638524)
       )
       expect(result).toEqual(9251482n)
     })

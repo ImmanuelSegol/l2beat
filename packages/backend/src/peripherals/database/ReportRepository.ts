@@ -61,14 +61,14 @@ function toRow(record: ReportRecord): ReportRow {
     balance: record.balance.toString(),
     usd_tvl: record.usdTVL.toString(),
     eth_tvl: record.ethTVL.toString(),
-    is_daily: UnixTimestamp.isExact('day', record.timestamp),
+    is_daily: UnixTimestamp.isExact(UnixTimestamp.DAY, record.timestamp),
   }
 }
 
 function toRecord(row: ReportRow): ReportRecord {
   return {
     blockNumber: BigInt(row.block_number),
-    timestamp: UnixTimestamp.fromSeconds(+row.unix_timestamp),
+    timestamp: UnixTimestamp(+row.unix_timestamp),
     bridge: EthereumAddress.unsafe(row.bridge_address),
     asset: AssetId(row.asset_id),
     balance: BigInt(row.balance),

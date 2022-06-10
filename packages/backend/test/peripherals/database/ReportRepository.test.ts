@@ -10,7 +10,10 @@ describe(ReportRepository.name, () => {
   const reportsRepository = new ReportRepository(knex, Logger.SILENT)
   const balancesRepository = new BalanceRepository(knex, Logger.SILENT)
 
-  const TODAY = UnixTimestamp.toStartOf('day', UnixTimestamp.now())
+  const TODAY = UnixTimestamp.roundDownTo(
+    UnixTimestamp.DAY,
+    UnixTimestamp.now()
+  )
   const BLOCK = 123456n
   const BRIDGE_A = EthereumAddress.random()
   const ASSET_A = AssetId('asset-a')
@@ -23,7 +26,7 @@ describe(ReportRepository.name, () => {
   ) => {
     return {
       blockNumber: BLOCK + blockOffset,
-      timestamp: UnixTimestamp.add(timestampOffset, 'hours', TODAY),
+      timestamp: UnixTimestamp(+TODAY + timestampOffset * UnixTimestamp.HOUR),
       bridge,
       asset: ASSET_A,
       balance: BALANCE,

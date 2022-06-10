@@ -88,8 +88,8 @@ export class PriceRepository extends BaseRepository {
       rows.map((row) => [
         CoingeckoId(row.coingecko_id),
         {
-          earliest: UnixTimestamp.fromSeconds(parseInt(row.min)),
-          latest: UnixTimestamp.fromSeconds(parseInt(row.max)),
+          earliest: UnixTimestamp(parseInt(row.min)),
+          latest: UnixTimestamp(parseInt(row.max)),
         },
       ])
     )
@@ -98,7 +98,7 @@ export class PriceRepository extends BaseRepository {
 
 function toRecord(row: PriceRow): PriceRecord {
   return {
-    timestamp: UnixTimestamp.fromSeconds(+row.unix_timestamp),
+    timestamp: UnixTimestamp(+row.unix_timestamp),
     coingeckoId: CoingeckoId(row.coingecko_id),
     priceUsd: +row.price_usd,
   }

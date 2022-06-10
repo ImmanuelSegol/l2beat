@@ -12,22 +12,22 @@ describe(PriceRepository.name, () => {
   const DATA = [
     {
       priceUsd: 3000,
-      timestamp: UnixTimestamp.add(-1, 'hours', START),
+      timestamp: UnixTimestamp(+START - UnixTimestamp.HOUR),
       coingeckoId: CoingeckoId('ethereum'),
     },
     {
       priceUsd: 3100,
-      timestamp: UnixTimestamp.add(-2, 'hours', START),
+      timestamp: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
       coingeckoId: CoingeckoId('ethereum'),
     },
     {
       priceUsd: 20,
-      timestamp: UnixTimestamp.add(-1, 'hours', START),
+      timestamp: UnixTimestamp(+START - UnixTimestamp.HOUR),
       coingeckoId: CoingeckoId('uniswap'),
     },
     {
       priceUsd: 22,
-      timestamp: UnixTimestamp.add(-2, 'hours', START),
+      timestamp: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
       coingeckoId: CoingeckoId('uniswap'),
     },
     {
@@ -47,12 +47,16 @@ describe(PriceRepository.name, () => {
       const newRows = [
         {
           priceUsd: 3300,
-          timestamp: UnixTimestamp.add(-3, 'hours', UnixTimestamp.now()),
+          timestamp: UnixTimestamp(
+            +UnixTimestamp.now() - 3 * UnixTimestamp.HOUR
+          ),
           coingeckoId: CoingeckoId('ethereum'),
         },
         {
           priceUsd: 3500,
-          timestamp: UnixTimestamp.add(-4, 'hours', UnixTimestamp.now()),
+          timestamp: UnixTimestamp(
+            +UnixTimestamp.now() - 4 * UnixTimestamp.HOUR
+          ),
           coingeckoId: CoingeckoId('ethereum'),
         },
       ]
@@ -97,7 +101,9 @@ describe(PriceRepository.name, () => {
         },
         {
           priceUsd: 3300.1,
-          timestamp: UnixTimestamp.add(-3, 'hours', UnixTimestamp.now()),
+          timestamp: UnixTimestamp(
+            +UnixTimestamp.now() - 3 * UnixTimestamp.HOUR
+          ),
           coingeckoId: CoingeckoId('ethereum'),
         },
       ]
@@ -123,8 +129,7 @@ describe(PriceRepository.name, () => {
   })
 
   it(PriceRepository.prototype.getByTimestamp.name, async () => {
-    const timestamp = UnixTimestamp.add(-1, 'hours', START)
-
+    const timestamp = UnixTimestamp(+START - UnixTimestamp.HOUR)
     const results = await repository.getByTimestamp(timestamp)
 
     expect(results).toBeAnArrayWith(DATA[0], DATA[2])
@@ -157,15 +162,15 @@ describe(PriceRepository.name, () => {
           [
             CoingeckoId('ethereum'),
             {
-              earliest: UnixTimestamp.add(-2, 'hours', START),
-              latest: UnixTimestamp.add(-1, 'hours', START),
+              earliest: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
+              latest: UnixTimestamp(+START - UnixTimestamp.HOUR),
             },
           ],
           [
             CoingeckoId('uniswap'),
             {
-              earliest: UnixTimestamp.add(-2, 'hours', START),
-              latest: UnixTimestamp.add(-1, 'hours', START),
+              earliest: UnixTimestamp(+START - 2 * UnixTimestamp.HOUR),
+              latest: UnixTimestamp(+START - UnixTimestamp.HOUR),
             },
           ],
           [
